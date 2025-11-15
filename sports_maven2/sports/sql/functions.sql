@@ -1,0 +1,10 @@
+
+DROP FUNCTION IF EXISTS llista_esports();
+
+CREATE OR REPLACE FUNCTION llista_esports()
+RETURNS TABLE(cod integer, nom varchar) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT COD, NOMBRE FROM DEPORTES ORDER BY COD;
+END;
+$$ LANGUAGE plpgsql;
