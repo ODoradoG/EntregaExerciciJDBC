@@ -1,19 +1,14 @@
 package dam.m6.uf2;
 
 import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 
 
-// Exemple XML de configuració
-// <cb-config>
-//     <host>localhost</host>
-//     <port>5432</port>
-//     <user>alex</user>
-//     <password>1234</password>
-//     <database>sports</database>
-//  </cb-config>
+
 
 public class ReadConfigXML {
 	private String host;

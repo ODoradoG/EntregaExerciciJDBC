@@ -5,60 +5,85 @@ import java.util.Scanner;
 
 public class MainView {
 
-    /**
-     * @return
-     */
-    public int mainMenu() {
-        // TODO Auto-generated method stub
-        System.out.println("1. Llistar esports\n2. Afegir esport\n3. Llistar usuaris\n4. Afegir usuari\n0. Sortir");
-        Scanner sc = new Scanner(System.in);
-        int option = -1;
-        try {
-            option = Integer.parseInt(sc.nextLine());
-        } catch (Exception e) {
-            option = -1;
-        }
-        return option;
-        //throw new UnsupportedOperationException("Unimplemented method 'mainMenu'");
-    }
+	public static final Scanner sc = new Scanner(System.in);
 
-    public void showUsers(List<User> list) {
-        System.out.println("MOSTRANT LLISTAT USUARIS....");
-        for (User user : list) {
-            System.out.println(user.name + "    " + user.password);
-        }
-    }
+	public int menuPrincipal() {
+		int opcio = -1;
+		while (opcio < 0 || opcio > 5) {
+			System.out.println("--- Menú pràctica JDBC ---");
+			System.out.println("1. Llistar esports");
+			System.out.println("2. Afegir esport");
+			System.out.println("3. Llistar atletes per esport");
+			System.out.println("4. Afegir atleta");
+			System.out.println("5. Buscar atletes per nom");
+			System.out.println("0. Sortir");
+			System.out.print("Tria una opció: ");
+			if (sc.hasNextInt()) {
+				opcio = sc.nextInt();
+				sc.nextLine();
+			} else {
+				sc.nextLine();
+				opcio = -1;
+			}
+			if (opcio < 0 || opcio > 5) {
+				System.out.println("Opció no vàlida, prova una altra vegada.");
+			}
+		}
+		return opcio;
+	}
 
+	public Esport esportForm() {
+		System.out.println("Introdueix el nom de l'esport:");
+		String nom = sc.nextLine();
+		if (nom == null) {
+			return null;
+		}
+		return new Esport(nom.trim());
+	}
 
-    public User addUserForm(){
-        System.out.println("FORMULARI USUARI....nom, pass, etc");
-        Scanner sc = new Scanner(System.in);
-        String username = sc.nextLine();
-        String password = "1234";
+	public Atleta atletaForm() {
+		System.out.println("Introdueix el nom de l'atleta:");
+		String nom = sc.nextLine();
+		if (nom == null) {
+			return null;
+		}
+		System.out.println("Introdueix l'ID de l'esport:");
+		int id = -1;
+		try { id = Integer.parseInt(sc.nextLine()); } catch (Exception e) { id = -1; }
+		if (id < 0) {
+			return null;
+		}
+		return new Atleta(nom.trim(), id);
+	}
 
-        return new User(username,password);
-    }
+	public Integer demanaEsport() {
+		System.out.println("Introdueix l'ID de l'esport:");
+		try { return Integer.parseInt(sc.nextLine()); } catch (Exception e) { return null; }
+	}
 
-    public Esport esportForm(){
-        System.out.println("FORMULARI ESPORT - Introdueix el nom de l'esport:");
-        Scanner sc = new Scanner(System.in);
-        String nom = sc.nextLine();
-        if (nom == null || nom.trim().isEmpty()) {
-            return null;
-        }
-        return new Esport(nom.trim());
-    }
+	public void llistaEsports(List<Esport> llista) {
+		System.out.println("LLISTA D'ESPORTS:");
+		if (llista == null) {
+			System.out.println("(cap esport registrat)");
+			return;
+		}
+		for (Esport e : llista) {
+			System.out.println(e.getId() + ") " + e.getName());
+		}
+	}
 
-    public void mostrarLlistaEsports(java.util.List<Esport> llista){
-        System.out.println("LLISTA D'ESPORTS:");
-        if (llista == null || llista.isEmpty()){
-            System.out.println("(cap esport registrat)");
-            return;
-        }
-        for (Esport e : llista){
-            System.out.println(e.getCod() + ") " + e.getNom());
-        }
-    }
+	public void llistaAtletes(List<Atleta> llista) {
+		System.out.println("LLISTA D'ATLETES:");
+		if (llista == null) {
+			System.out.println("(cap atleta)");
+			return;
+		}
+		for (Atleta a : llista) {
+			System.out.println(a.getId() + ") " + a.getName() + " - " + (a.getSportName() == null ? "(desconegut)" : a.getSportName()));
+		}
+	}
+
 
 
 }
+

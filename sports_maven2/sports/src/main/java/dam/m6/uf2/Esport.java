@@ -17,11 +17,19 @@ public class Esport {
         return cod;
     }
 
+    public int getId() {
+        return cod;
+    }
+
     public void setCod(int cod) {
         this.cod = cod;
     }
 
     public String getNom() {
+        return nom;
+    }
+
+    public String getName() {
         return nom;
     }
 
